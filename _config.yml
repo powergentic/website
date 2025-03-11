@@ -6,7 +6,7 @@ author:
   name: "Chris Pietschmann"
   email: "chris@powergentic.ai"
 #theme: "minima"
-markdown: kramdown
+#markdown: kramdown
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
@@ -19,4 +19,5 @@ exclude:
   - _layouts
   - assets
   - .gitignore
+  - .github
   - .DS_Store
