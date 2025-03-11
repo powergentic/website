@@ -1,0 +1,22 @@
+title: Powergentic - No-Code AI Enterprise Platform
+description: Unlock the power of AI without coding. Quickly build intelligent multi-agent applications and automate workflows to drive enterprise innovation and efficiency.
+baseurl: ""
+url: "http://powergentic.ai"
+author:
+  name: "Chris Pietschmann"
+  email: "chris@powergentic.ai"
+theme: "minimal"
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+exclude:
+  - README.md
+  - _posts
+  - _drafts
+  - _includes
+  - _layouts
+  - assets
+  - .gitignore
+  - .DS_Store
