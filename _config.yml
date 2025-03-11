@@ -5,7 +5,7 @@ url: "http://powergentic.ai"
 author:
   name: "Chris Pietschmann"
   email: "chris@powergentic.ai"
-theme: "minima"
+#theme: "minima"
 markdown: kramdown
 plugins:
   - jekyll-feed
