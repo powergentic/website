@@ -83,3 +83,9 @@ body > main {
 footer {
   padding: 3em 0;
 }
+footer a {
+  text-decoration: none;;
+}
+footer a:hover {
+  text-decoration: underline;
+}
