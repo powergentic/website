@@ -3,6 +3,10 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+body > main {
+  margin-bottom: 3em;
+}
+
 .navbar-brand {
   font-weight: bold;
 }
@@ -13,7 +17,7 @@ body {
   /* background: linear-gradient(135deg, #051522, #07223A); */
   background: url('/images/homepage-hero.jpg') no-repeat center center;
   background-size: cover;
-  color: white;
+  color: #fff;
   overflow: hidden;
 }
 
@@ -34,7 +38,7 @@ body {
 }
 
 .hero-btn {
-  background-color: #ffffff;
+  background-color: #fff;
   color: #2b59c3;
   font-weight: bold;
   border-radius: 50px;
@@ -60,7 +64,8 @@ body {
 
 .cta-section {
   padding: 60px 0;
-  background-color: #ffffff;
+  background: linear-gradient(135deg, #051522, #07223A);
+  color: #fff;
 }
 
 footer {
