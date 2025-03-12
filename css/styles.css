@@ -9,7 +9,9 @@ body {
 
 .hero-section {
   padding: 100px 0;
-  background: linear-gradient(135deg, #2b59c3, #4c8bf5);
+  /* background: linear-gradient(135deg, #051522, #07223A); */
+  background: url('/images/homepage-hero.jpg') no-repeat center center;
+  background-size: cover;
   color: white;
 }
 
