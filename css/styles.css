@@ -10,6 +10,10 @@ body > main {
 .navbar-brand {
   font-weight: bold;
 }
+.navbar-brand img {
+  border-radius: 0.5em;
+  height: 1.5em;
+}
 
 .btn-primary {
   background-color: #025FAA;
