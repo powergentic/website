@@ -49,6 +49,4 @@ This is a simple Jekyll site structure designed for easy customization and deplo
 - To create a new post, add a Markdown file in the `_posts/` directory following the naming convention `YEAR-MONTH-DAY-title.md`.
 - Customize the site by editing the `_config.yml` file and modifying the HTML/CSS files in the `_includes/`, `_layouts/`, and `assets/` directories.
 
-## License
-
-This project is licensed under the MIT License. Feel free to modify and use it as per your requirements.
+&copy; 2025 Powergentic.ai. All rights reserved.
