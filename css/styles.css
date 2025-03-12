@@ -73,6 +73,13 @@ body > main {
   color: #fff;
 }
 
+.newsletter-signup-section iframe {
+  margin: 0;
+  background-color: #fff;
+  border: solid 0.1em #fff;
+  border-radius: 0.5em;
+}
+
 footer {
   padding: 3em 0;
 }
