@@ -92,6 +92,11 @@ section.newsletter-latest-articles a:hover h5 {
   text-decoration: underline;
 }
 
+section.newsletter-latest-articles h5,
+section.newsletter-latest-articles p {
+  text-align: left;
+}
+
 footer {
   padding: 3em 0;
 }
