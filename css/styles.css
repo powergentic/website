@@ -84,6 +84,14 @@ body > main {
   border-radius: 0.5em;
 }
 
+section.newsletter-latest-articles a {
+  text-decoration: none;
+  color: inherit;
+}
+section.newsletter-latest-articles a:hover h5 {
+  text-decoration: underline;
+}
+
 footer {
   padding: 3em 0;
 }
