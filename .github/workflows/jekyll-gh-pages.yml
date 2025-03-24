@@ -48,7 +48,7 @@ jobs:
           #https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/
 
           # remove unicode characters from JSON
-          iconv -c -f utf-8 -t ascii latest_posts_powergentic.json >> latest_posts_powergentic.json # remove unicode characters
+          iconv -c -f utf-8 -t ascii latest_posts_powergentic.json > latest_posts_powergentic.json.tmp && mv latest_posts_powergentic.json.tmp latest_posts_powergentic.json
 
           sed -i 's/\\u[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]//g' latest_posts_powergentic.json
           sed -i 's/\\\//\//g' latest_posts_powergentic.json
