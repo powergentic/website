@@ -27,13 +27,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Download Feed for Powergentic 
+      - name: Download RSS for Powergentic 
         run: |
-          rm ./latest_posts_powergentic.xml
+          # remove if exists
+          if [ -e "./latest_posts_powergentic.xml" ]; then
+            rm ./latest_posts_powergentic.xml
+          fi
           curl -sS "https://rss.beehiiv.com/feeds/QmOgAcfU4t.xml" > ./latest_posts_powergentic.xml
         working-directory: ${{ github.workspace }}/_data
       
-      - name: Convert Powergentic XML to JSON
+      - name: Convert Powergentic RSS to JSON
         run: |
           python -m pip install -r ./.github/workflows/scripts/powergentic/requirements.txt
           python ./.github/workflows/scripts/powergentic/powergentic_xml_to_json.py
