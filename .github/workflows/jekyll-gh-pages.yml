@@ -22,9 +22,63 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  update-articles:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Feed for Powergentic 
+        run: |
+          rm ./latest_posts_powergentic.xml
+          curl -sS "https://rss.beehiiv.com/feeds/QmOgAcfU4t.xml" > ./latest_posts_powergentic.xml
+        working-directory: ${{ github.workspace }}/_data
+      
+      - name: Convert Powergentic XML to JSON
+        run: |
+          python -m pip install -r ./.github/workflows/scripts/powergentic/requirements.txt
+          python ./.github/workflows/scripts/powergentic/powergentic_xml_to_json.py
+        working-directory: ${{ github.workspace }}
+      
+      - name: Clean Feed for Powergentic
+        run: |
+          #https://github.com/mdlincoln/jekyll-slack
+          #https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/
+
+          # remove unicode characters from JSON
+          iconv -c -f utf-8 -t ascii latest_posts_powergentic.json >> latest_posts_powergentic.json # remove unicode characters
+
+          sed -i 's/\\u[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]//g' latest_posts_powergentic.json
+          sed -i 's/\\\//\//g' latest_posts_powergentic.json
+          
+          #cat latest_posts_powergentic.json
+        working-directory: ${{ github.workspace }}/_data
+
+      - name: Check for Changes
+        id: check_changes
+        run: |
+          if [[ -n "$(git diff --exit-code)" ]]; then
+            echo "Changes detected."
+            echo "::set-output name=has_changes::true"
+          else
+            echo "No changes detected."
+            echo "::set-output name=has_changes::false"
+          fi
+        
+      - name: Commit and Push Changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+          git add ${{ github.workspace }}/_data/latest_posts_powergentic.json
+
+          git commit -m 'Update downloaded file'
+          git push
+      
   # Build job
   build:
     runs-on: ubuntu-latest
+    needs: update-articles
     steps:
       - name: Checkout
         uses: actions/checkout@v4
