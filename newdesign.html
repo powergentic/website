@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PowerGenetic — Agentic AI</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root{
+        --bg: #070b14;
+        --panel: rgba(14, 22, 38, 0.62);
+        --panel2: rgba(10, 16, 28, 0.72);
+        --border: rgba(130, 190, 255, 0.18);
+        --glow: rgba(56, 160, 255, 0.55);
+        --text: rgba(245, 248, 255, 0.92);
+        --muted: rgba(245, 248, 255, 0.68);
+        --accent: #4CC3FF;
+        --accent2: #7AE2FF;
+      }
+
+      body{
+        background: radial-gradient(900px 600px at 50% 0%, rgba(76,195,255,.14), transparent 55%),
+                    radial-gradient(700px 500px at 15% 20%, rgba(122,226,255,.10), transparent 60%),
+                    radial-gradient(700px 500px at 85% 25%, rgba(76,195,255,.08), transparent 60%),
+                    var(--bg);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      /* ====== Hero background ====== */
+      .hero-wrap{
+        position: relative;
+        min-height: 92vh;
+        display: flex;
+        align-items: center;
+        padding: 6rem 0 4rem;
+      }
+
+      .hero-bg{
+        position:absolute;
+        inset:0;
+        background:
+          linear-gradient(180deg, rgba(7,11,20,.6) 0%, rgba(7,11,20,.78) 40%, rgba(7,11,20,.92) 100%),
+          url("bg-network.jpg"); /* <-- replace with your generated background file */
+        background-size: cover;
+        background-position: center;
+        filter: saturate(1.05) contrast(1.05);
+        opacity: 1;
+      }
+
+      .hero-noise{
+        position:absolute;
+        inset:0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+        mix-blend-mode: overlay;
+        opacity: .35;
+        pointer-events:none;
+      }
+
+      .hero-content{
+        position: relative;
+        z-index: 2;
+      }
+
+      /* ====== Nav ====== */
+      .nav-glass{
+        background: rgba(9, 14, 25, 0.55);
+        border-bottom: 1px solid rgba(130,190,255,.14);
+        backdrop-filter: blur(10px);
+      }
+      .brand-badge{
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at 30% 30%, rgba(122,226,255,.35), rgba(76,195,255,.10));
+        border: 1px solid rgba(130,190,255,.22);
+        box-shadow: 0 0 24px rgba(76,195,255,.12);
+      }
+      .brand-dot{
+        width: 14px;
+        height: 14px;
+        border-radius: 7px;
+        background: linear-gradient(135deg, var(--accent2), var(--accent));
+        box-shadow: 0 0 18px rgba(76,195,255,.55);
+      }
+
+      /* ====== Panels / Cards ====== */
+      .glass{
+        background: linear-gradient(180deg, rgba(14,22,38,.68), rgba(10,16,28,.68));
+        border: 1px solid rgba(130,190,255,.16);
+        box-shadow:
+          0 10px 40px rgba(0,0,0,.35),
+          0 0 0 1px rgba(0,0,0,.35) inset;
+        backdrop-filter: blur(12px);
+        border-radius: 18px;
+      }
+
+      .hero-emblem{
+        width: 140px;
+        height: 140px;
+        border-radius: 28px;
+        background:
+          radial-gradient(circle at 30% 30%, rgba(122,226,255,.26), transparent 55%),
+          radial-gradient(circle at 70% 60%, rgba(76,195,255,.18), transparent 55%),
+          rgba(10,16,28,.60);
+        border: 1px solid rgba(130,190,255,.18);
+        box-shadow: 0 0 60px rgba(76,195,255,.14);
+        display:grid;
+        place-items:center;
+        margin: 0 auto 1.6rem;
+        position: relative;
+      }
+
+      .hero-emblem::after{
+        content:"";
+        position:absolute;
+        inset:-8px;
+        border-radius: 34px;
+        border: 1px solid rgba(76,195,255,.10);
+        filter: blur(.2px);
+      }
+
+      /* A simple “agent helix” glyph (SVG) styling */
+      .helix svg{ width: 86px; height: 86px; }
+      .helix path{ stroke: var(--accent); }
+      .helix circle{ fill: var(--accent2); }
+
+      .headline{
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+      }
+
+      .muted{ color: var(--muted); }
+
+      .btn-glow{
+        background: linear-gradient(135deg, rgba(122,226,255,.95), rgba(76,195,255,.85));
+        border: 0;
+        color: #021017;
+        box-shadow: 0 10px 30px rgba(76,195,255,.18);
+      }
+      .btn-glow:hover{
+        filter: brightness(1.06);
+        box-shadow: 0 14px 38px rgba(76,195,255,.22);
+      }
+      .btn-ghost{
+        border: 1px solid rgba(130,190,255,.22);
+        color: var(--text);
+        background: rgba(10,16,28,.35);
+      }
+      .btn-ghost:hover{
+        background: rgba(10,16,28,.55);
+        border-color: rgba(130,190,255,.30);
+      }
+
+      .feature-icon{
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: rgba(76,195,255,.10);
+        border: 1px solid rgba(130,190,255,.18);
+        display:grid;
+        place-items:center;
+        box-shadow: 0 0 26px rgba(76,195,255,.10);
+      }
+
+      .divider{
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(130,190,255,.22), transparent);
+      }
+
+      footer{
+        color: rgba(245,248,255,.55);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAV -->
+    <nav class="navbar navbar-expand-lg navbar-dark nav-glass fixed-top">
+      <div class="container py-2">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+          <span class="brand-badge"><span class="brand-dot"></span></span>
+          <span class="fw-semibold" style="letter-spacing:.08em;">POWER<span style="color:var(--accent);">GENETIC</span></span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <li class="nav-item"><a class="nav-link" href="#platform">Platform</a></li>
+            <li class="nav-item"><a class="nav-link" href="#usecases">Use Cases</a></li>
+            <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            <li class="nav-item ms-lg-2">
+              <a class="btn btn-sm btn-glow px-3 rounded-3" href="#get-started">Get Started</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-wrap">
+      <div class="hero-bg"></div>
+      <div class="hero-noise"></div>
+
+      <div class="container hero-content">
+        <div class="row justify-content-center text-center">
+          <div class="col-12 col-lg-9">
+            <div class="hero-emblem glass helix">
+              <!-- Simple agent-helix SVG mark -->
+              <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                <path d="M30 18 C55 28, 45 44, 70 54 C90 62, 76 82, 45 86" stroke-width="4" stroke-linecap="round"/>
+                <path d="M70 18 C45 28, 55 44, 30 54 C10 62, 24 82, 55 86" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+                <circle cx="30" cy="18" r="4"/>
+                <circle cx="70" cy="18" r="4"/>
+                <circle cx="30" cy="54" r="4"/>
+                <circle cx="70" cy="54" r="4"/>
+                <circle cx="45" cy="86" r="4"/>
+                <circle cx="55" cy="86" r="4"/>
+              </svg>
+            </div>
+
+            <h1 class="display-4 fw-semibold headline">
+              Powering Intelligent<br />
+              Enterprise Systems with <span style="color:var(--accent2)">Agentic AI</span>
+            </h1>
+
+            <p class="lead mt-3 muted">
+              Design, build, and scale agentic workflows that plan, act, and iterate—securely integrated into your enterprise stack.
+            </p>
+
+            <div class="d-flex gap-2 justify-content-center mt-4 flex-wrap">
+              <a class="btn btn-glow btn-lg px-4 rounded-3" href="#get-started">Get Started</a>
+              <a class="btn btn-ghost btn-lg px-4 rounded-3" href="#platform">Learn More</a>
+            </div>
+
+            <div class="mt-5 pt-3">
+              <div class="divider mb-4"></div>
+              <div class="row g-3 text-start">
+                <div class="col-12 col-md-4">
+                  <div class="glass p-4 h-100">
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                      <div class="feature-icon">
+                        <span class="fw-bold" style="color:var(--accent2)">A</span>
+                      </div>
+                      <div class="fw-semibold">Agent Orchestration</div>
+                    </div>
+                    <div class="small muted">Coordinate multiple agents with guardrails, tools, and shared memory.</div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-4">
+                  <div class="glass p-4 h-100">
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                      <div class="feature-icon">
+                        <span class="fw-bold" style="color:var(--accent2)">R</span>
+                      </div>
+                      <div class="fw-semibold">RAG + Context</div>
+                    </div>
+                    <div class="small muted">Ground actions in trusted enterprise data with retrieval and policies.</div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-4">
+                  <div class="glass p-4 h-100">
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                      <div class="feature-icon">
+                        <span class="fw-bold" style="color:var(--accent2)">S</span>
+                      </div>
+                      <div class="fw-semibold">Secure Integration</div>
+                    </div>
+                    <div class="small muted">Connect to systems of record with auditability, roles, and controls.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PLATFORM -->
+    <section id="platform" class="py-5">
+      <div class="container py-4">
+        <div class="row align-items-end g-4 mb-4">
+          <div class="col-lg-8">
+            <h2 class="fw-semibold mb-2">Our Platform</h2>
+            <p class="muted mb-0">
+              Build agentic systems that move beyond chat—planning, tool use, and multi-step workflows designed for production.
+            </p>
+          </div>
+          <div class="col-lg-4 text-lg-end">
+            <a class="btn btn-ghost rounded-3" href="#resources">Explore docs</a>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="glass p-4 h-100">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="feature-icon"><span style="color:var(--accent2)">⚙</span></div>
+                <div class="fw-semibold">Workflow Builder</div>
+              </div>
+              <p class="small muted mb-0">Compose plans, tools, approvals, and retries into reliable orchestrations.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="glass p-4 h-100">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="feature-icon"><span style="color:var(--accent2)">🧠</span></div>
+                <div class="fw-semibold">Shared Memory</div>
+              </div>
+              <p class="small muted mb-0">Session + long-term memory patterns with governance and data boundaries.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="glass p-4 h-100">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="feature-icon"><span style="color:var(--accent2)">🛡</span></div>
+                <div class="fw-semibold">Guardrails</div>
+              </div>
+              <p class="small muted mb-0">Policy checks, tool permissions, and audit trails for enterprise safety.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6">
+            <div class="glass p-4 h-100">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="feature-icon"><span style="color:var(--accent2)">🔌</span></div>
+                <div class="fw-semibold">Connectors</div>
+              </div>
+              <p class="small muted mb-0">
+                Integrate with internal APIs, data sources, and SaaS tools—securely and repeatably.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6">
+            <div class="glass p-4 h-100">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="feature-icon"><span style="color:var(--accent2)">📈</span></div>
+                <div class="fw-semibold">Observability</div>
+              </div>
+              <p class="small muted mb-0">
+                Trace multi-step runs, measure outcomes, and tune prompts/tools with real telemetry.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section id="usecases" class="py-5">
+      <div class="container py-4">
+        <div class="row g-4 align-items-center mb-4">
+          <div class="col-lg-7">
+            <h2 class="fw-semibold mb-2">Use Cases</h2>
+            <p class="muted mb-0">Agentic systems that execute, verify, and improve—across teams.</p>
+          </div>
+          <div class="col-lg-5">
+            <div class="glass p-3 d-flex gap-2 align-items-center">
+              <span class="small muted ms-2">Search</span>
+              <input class="form-control form-control-sm bg-transparent text-white border-0" placeholder="e.g., onboarding, finance, IT ops" />
+              <button class="btn btn-sm btn-ghost rounded-3">Go</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="glass p-4 h-100">
+              <div class="fw-semibold mb-1">IT Operations Copilot</div>
+              <div class="small muted mb-3">Triages tickets, runs playbooks, escalates with full context.</div>
+              <span class="badge rounded-pill text-bg-dark" style="border:1px solid rgba(130,190,255,.18)">Agents</span>
+              <span class="badge rounded-pill text-bg-dark" style="border:1px solid rgba(130,190,255,.18)">Tool Use</span>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="glass p-4 h-100">
+              <div class="fw-semibold mb-1">Knowledge-to-Action</div>
+              <div class="small muted mb-3">Finds answers, drafts artifacts, and triggers workflows in your tools.</div>
+              <span class="badge rounded-pill text-bg-dark" style="border:1px solid rgba(130,190,255,.18)">RAG</span>
+              <span class="badge rounded-pill text-bg-dark" style="border:1px solid rgba(130,190,255,.18)">Approvals</span>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="glass p-4 h-100">
+              <div class="fw-semibold mb-1">Compliance Automation</div>
+              <div class="small muted mb-3">Collects evidence, checks policies, generates audit-ready reports.</div>
+              <span class="badge rounded-pill text-bg-dark" style="border:1px solid rgba(130,190,255,.18)">Guardrails</span>
+              <span class="badge rounded-pill text-bg-dark" style="border:1px solid rgba(130,190,255,.18)">Audit</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="get-started" class="py-5">
+      <div class="container py-4">
+        <div class="glass p-4 p-lg-5">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+              <h3 class="fw-semibold mb-2">Ready to build production agentic AI?</h3>
+              <p class="muted mb-0">Get a demo, see reference architectures, and ship your first workflow quickly.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+              <a class="btn btn-glow btn-lg rounded-3 px-4" href="#">Request a Demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-4">
+      <div class="container">
+        <div class="divider mb-3"></div>
+        <div class="d-flex flex-wrap justify-content-between gap-2 small">
+          <div>© <span id="y"></span> PowerGenetic</div>
+          <div class="d-flex gap-3">
+            <a class="link-light link-opacity-75-hover text-decoration-none" href="#resources">Docs</a>
+            <a class="link-light link-opacity-75-hover text-decoration-none" href="#">Privacy</a>
+            <a class="link-light link-opacity-75-hover text-decoration-none" href="#">Terms</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
