@@ -44,24 +44,34 @@ title: Powergentic - Embrace the Power of Next-Generation AI
   </div>
 </section>
 
-<section class="container my-5">
-  <div class="row text-center">
-    <div class="col-md-4 my-2">
-      <div class="card feature-card p-4">
-        <h5 class="fw-bold">Build Smarter, Faster</h5>
-        <p>Accelerate innovation with our low-code tools that enable your team to design and deploy advanced AI-driven workflows in record time. Overcome technical barriers and unlock a new era of operational excellence.</p>
-      </div>
+<hr class="glow-divider">
+<section class="feature-cards-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="section-label">Why Powergentic</span>
+      <h2 class="section-heading">Built for the AI Era</h2>
     </div>
-    <div class="col-md-4 my-2">
-      <div class="card feature-card p-4">
-        <h5 class="fw-bold">Seamless Integration for Maximum Impact</h5>
-        <p>Connect effortlessly with your existing systems and third-party applications. Our platform creates a unified AI ecosystem that scales with your business, ensuring a smooth transition to smarter processes.</p>
+    <div class="row text-center">
+      <div class="col-md-4 my-2">
+        <div class="card feature-card p-4">
+          <span class="feature-icon bi bi-lightning-charge-fill"></span>
+          <h5 class="fw-bold">Build Smarter, Faster</h5>
+          <p>Accelerate innovation with our low-code tools that enable your team to design and deploy advanced AI-driven workflows in record time. Overcome technical barriers and unlock a new era of operational excellence.</p>
+        </div>
       </div>
-    </div>
-    <div class="col-md-4 my-2">
-      <div class="card feature-card p-4">
-        <h5 class="fw-bold">Enterprise-Grade Security You Can Trust</h5>
-        <p>Safeguard your most valuable data with our comprehensive security protocols and compliance-ready infrastructure. Experience robust protection as you harness the power of AI across your organization.</p>
+      <div class="col-md-4 my-2">
+        <div class="card feature-card p-4">
+          <span class="feature-icon bi bi-plugin"></span>
+          <h5 class="fw-bold">Seamless Integration for Maximum Impact</h5>
+          <p>Connect effortlessly with your existing systems and third-party applications. Our platform creates a unified AI ecosystem that scales with your business, ensuring a smooth transition to smarter processes.</p>
+        </div>
+      </div>
+      <div class="col-md-4 my-2">
+        <div class="card feature-card p-4">
+          <span class="feature-icon bi bi-shield-lock-fill"></span>
+          <h5 class="fw-bold">Enterprise-Grade Security You Can Trust</h5>
+          <p>Safeguard your most valuable data with our comprehensive security protocols and compliance-ready infrastructure. Experience robust protection as you harness the power of AI across your organization.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -94,6 +104,10 @@ title: Powergentic - Embrace the Power of Next-Generation AI
 
 <!-- Latest Newsletters -->
 <section class="container my-5 newsletter-latest-articles">
+  <div class="section-header text-center">
+    <span class="section-label">Resources</span>
+    <h2 class="section-heading">Latest Articles</h2>
+  </div>
   <div class="row">
     {% for article in site.data.latest_posts_powergentic.rss.channel.item limit:6 %}
       {% assign featured_image_enclosure = article.enclosure %}
@@ -120,6 +134,7 @@ title: Powergentic - Embrace the Power of Next-Generation AI
 
 <section id="tools" class="cta-section text-center newsletter-signup-section">
   <div class="container">
+    <span class="section-label">Open Source</span>
     <h2 class="fw-bold">Tools</h2>
     <p class="lead mb-4">Powergentic provides a number of AI-focused tools to help ease the pains of AI development and infrastructure management.</p>
   </div>
@@ -172,6 +187,7 @@ title: Powergentic - Embrace the Power of Next-Generation AI
 <a id="about"></a>
 <section class="cta-section text-center newsletter-signup-section">
   <div class="container">
+    <span class="section-label">Our Story</span>
     <h2 class="fw-bold">About Powergentic</h2>
     <p class="lead mb-4">Powergentic focuses on providing tools and guidance for building AI-native solutions.</p>
   </div>
